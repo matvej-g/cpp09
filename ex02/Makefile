@@ -1,4 +1,4 @@
-NAME		= RPN
+NAME		= PmergeMe
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++17
 

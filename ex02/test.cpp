@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <algorithm>  // for std::lower_bound
 #include <cstdlib>    // for std::atoi
 
