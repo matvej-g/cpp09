@@ -25,6 +25,8 @@ PmergeMe::~PmergeMe() {
 
 //Vector container sort
 std::vector<size_t> PmergeMe::computeJacobsthal_vec(size_t n) {
+	if (n < 2)
+		return std::vector<size_t>(n, 0);
 	std::vector<size_t> Jacob = {0, 1};
 	while (Jacob.back() < n)
 	{
@@ -41,6 +43,8 @@ std::vector<size_t> PmergeMe::computeJacobsthal_vec(size_t n) {
 	i = 0;
 	for (size_t x : Jacob)
 	{
+		if (x >= n)
+			continue;
 		if (!seen[x])
 		{
 			order.push_back(x);
@@ -71,7 +75,6 @@ std::vector<size_t> PmergeMe::computeJacobsthal_vec(size_t n) {
 std::vector<size_t> PmergeMe::mergeInsertSort_vec(std::vector<size_t> vec) {
 	if (vec.size() <= 1)
 		return vec;
-	
 	std::vector<size_t> smaller, larger;
 	for (size_t i = 0; i + 1 < vec.size(); i += 2)
 	{
@@ -92,12 +95,9 @@ std::vector<size_t> PmergeMe::mergeInsertSort_vec(std::vector<size_t> vec) {
 	}
 	larger = mergeInsertSort_vec(std::move(larger));
 	auto order = computeJacobsthal_vec(smaller.size());
-	for (size_t test : order)
-		std::cout << "Order: " << test << ' ' << "\n";
 	for (size_t idx : order)
 	{
 		int x = smaller[idx];
-		std::cout << "\nX: " << x << "\n\n";
 		auto it = std::lower_bound(larger.begin(), larger.end(), x);
 		larger.insert(it ,x);
 	}
@@ -105,7 +105,9 @@ std::vector<size_t> PmergeMe::mergeInsertSort_vec(std::vector<size_t> vec) {
 }
 
 //Deque container sort
-std::deque<size_t> computeJacobsthal_deque(size_t n) {
+std::deque<size_t> PmergeMe::computeJacobsthal_deque(size_t n) {
+	if (n < 2)
+		return std::deque<size_t>(n, 0);
 	std::deque<size_t> Jacob = {0, 1};
 	while (Jacob.back() < n)
 	{
@@ -122,6 +124,8 @@ std::deque<size_t> computeJacobsthal_deque(size_t n) {
 	i = 0;
 	for (size_t x : Jacob)
 	{
+		if (x >= n)
+			continue;
 		if (!seen[x])
 		{
 			order.push_back(x);
@@ -149,10 +153,9 @@ std::deque<size_t> computeJacobsthal_deque(size_t n) {
 	return order;
 }
 
-std::deque<size_t> mergeInsertSort_deque(std::deque<size_t> vec) {
+std::deque<size_t> PmergeMe::mergeInsertSort_deque(std::deque<size_t> vec) {
 	if (vec.size() <= 1)
 		return vec;
-	
 	std::deque<size_t> smaller, larger;
 	for (size_t i = 0; i + 1 < vec.size(); i += 2)
 	{
